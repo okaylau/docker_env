@@ -1,2 +1,4 @@
-# docker_environment
-docker-environment:php/nginx/mysql/redis/memcached
+# docker_env
+docker environment with php,nginx,mysql,redis,memcached
+
+copy .env.example to .env
