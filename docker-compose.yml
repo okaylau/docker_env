@@ -64,6 +64,7 @@ services:
       - ${PHPWORKER_SUPERVISORD_PATH}:/etc/supervisord.d
       - ${PHPWORKER_LOG_PATH}:/var/log/supervisor
       - ${CRONTAB_STORAGE}:/etc/crontabs
+      - CHANGE_SOURCE=${CHANGE_SOURCE}
     depends_on:
       - mysql
       - redis
@@ -114,16 +115,4 @@ services:
     tty: true
     networks:
       - frontend
-      - backend
-
-  memcached:
-    build: ./memcached
-    restart: always
-    volumes:
-      - ${MEMCACHED_STORAGE}:/var/lib/memcached
-    ports:
-      - "${MEMCACHED_HOST_PORT}:11211"
-    depends_on:
-      - php-fpm
-    networks:
       - backend

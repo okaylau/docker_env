@@ -14,7 +14,10 @@ RUN apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:ondrej/php
 
 # Change Source
-RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
+ARG CHANGE_SOURCE=false
+RUN if [ ${CHANGE_SOURCE} = true ]; then \
+    RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
+;fi
 
 #
 #--------------------------------------------------------------------------
