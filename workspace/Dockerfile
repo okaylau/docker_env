@@ -9,6 +9,9 @@ ENV LC_CTYPE=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV TERM xterm
 
+ENV http_proxy http://172.17.0.1:7890
+ENV https_proxy http://172.17.0.1:7890
+
 # Add the "PHP 7" ppa
 RUN apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:ondrej/php
@@ -245,7 +248,7 @@ Run if [ ${INSTALL_NPM_GULP} = true ]; then \
 ###########################################################################
 USER root
 
-ARG INSTALL_PYTHON=true
+ARG INSTALL_PYTHON=false
 
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
   apt-get -y install python python-pip python-dev build-essential  \
