@@ -47,9 +47,16 @@ services:
     restart: always
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
-      - ./php-fpm/php7.2.ini:/usr/local/etc/php/php.ini
+      - ./php-fpm/php7.4.ini:/usr/local/etc/php/php.ini
     expose:
       - "9000"
+    extra_hosts:
+      - "dockerhost:${DOCKER_HOST_IP}"
+      - "fd.kaylau.xyz:${DOCKER_HOST_IP}"
+      - "api.fd.kaylau.xyz:${DOCKER_HOST_IP}"
+      - "op.kaylau.xyz:${DOCKER_HOST_IP}"
+      - "pc.kaylau.xyz:${DOCKER_HOST_IP}"
+      - "hzf.kaylau.xyz:${DOCKER_HOST_IP}"
     depends_on:
       - mysql
       - redis

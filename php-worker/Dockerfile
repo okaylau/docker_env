@@ -4,7 +4,7 @@
 #--------------------------------------------------------------------------
 #
 
-ARG PHP_VERSION=7.2
+ARG PHP_VERSION=7.4
 FROM php:${PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"

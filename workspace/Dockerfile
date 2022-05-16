@@ -1,4 +1,4 @@
-FROM laradock/workspace:latest-7.2
+FROM laradock/workspace:latest-7.4
 
 RUN DEBIAN_FRONTEND=noninteractive
 RUN locale-gen en_US.UTF-8
@@ -32,22 +32,22 @@ RUN if [ ${CHANGE_SOURCE} = true ]; then \
 RUN apt-get update && \
     apt-get install -y --allow-downgrades --allow-remove-essential \
         --allow-change-held-packages \
-        php7.2-cli \
-        php7.2-common \
-        php7.2-curl \
-        php7.2-intl \
-        php7.2-json \
-        php7.2-xml \
-        php7.2-mbstring \
-        php7.2-mysql \
-        php7.2-pgsql \
-        php7.2-sqlite \
-        php7.2-sqlite3 \
-        php7.2-zip \
-        php7.2-bcmath \
-        php7.2-memcached \
-        php7.2-gd \
-        php7.2-dev \
+        php7.4-cli \
+        php7.4-common \
+        php7.4-curl \
+        php7.4-intl \
+        php7.4-json \
+        php7.4-xml \
+        php7.4-mbstring \
+        php7.4-mysql \
+        php7.4-pgsql \
+        php7.4-sqlite \
+        php7.4-sqlite3 \
+        php7.4-zip \
+        php7.4-bcmath \
+        php7.4-memcached \
+        php7.4-gd \
+        php7.4-dev \
         pkg-config \
         libcurl4-openssl-dev \
         libedit-dev \
@@ -98,7 +98,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 USER root
 
-Run apt-get install -y zsh wget \
+RUN apt-get install -y zsh wget \
   && chsh -s /bin/zsh
 
 USER laradock
@@ -284,7 +284,7 @@ RUN echo "" >> ~/.bashrc && \
 
 USER root
 
-RUN php -v | head -n 1 | grep -q "PHP 7.2."
+RUN php -v | head -n 1 | grep -q "PHP 7.4."
 
 #
 #--------------------------------------------------------------------------
