@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.4-fpm
 
 #
 #--------------------------------------------------------------------------
@@ -7,6 +7,9 @@ FROM php:7.2-fpm
 #
 # Installing tools and PHP extentions using "apt", "docker-php", "pecl",
 #
+
+ENV http_proxy http://172.17.0.1:7890
+ENV https_proxy http://172.17.0.1:7890
 
 ARG CHANGE_SOURCE=false
 RUN if [ ${CHANGE_SOURCE} = true ]; then \
@@ -36,8 +39,8 @@ RUN docker-php-ext-install pdo_mysql \
   # Install the PHP gd library
   && docker-php-ext-configure gd \
   # --enable-gd-native-ttf \
-  --with-jpeg-dir=/usr/lib \
-  --with-freetype-dir=/usr/include/freetype2 && \
+  --with-jpeg=/usr/lib \
+  --with-freetype=/usr/include/freetype2 && \
   docker-php-ext-install gd
 
 
@@ -56,7 +59,7 @@ RUN apt-get update -yqq && \
 
 # Install the PHP zip library
 RUN apt-get install libzip-dev -y && \
-    docker-php-ext-configure zip --with-libzip && \
+    # docker-php-ext-configure zip --with-libzip && \
     # Install the zip extension
     docker-php-ext-install zip
 

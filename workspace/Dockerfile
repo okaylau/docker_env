@@ -217,10 +217,10 @@ USER laradock
 RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com && \
     composer config -g process-timeout 2000
 
-Run npm --registry https://registry.npm.taobao.org install -g cnpm cyarn nrm && \
+RUN npm --registry https://registry.npm.taobao.org install -g cnpm cyarn nrm && \
     npm config set registry https://registry.npm.taobao.org
 
-Run echo 'export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node' >> ~/.zshrc && \
+RUN echo 'export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node' >> ~/.zshrc && \
     echo 'registry=https://registry.npm.taobao.org' >> ~/.npmrc && \
     echo 'registry "https://registry.npm.taobao.org"' >> ~/.yarnrc && \
     NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
@@ -233,7 +233,7 @@ ARG INSTALL_NPM_GULP=true
 ARG INSTALL_NPM_BOWER=true
 ARG INSTALL_NPM_VUE_CLI=true
 
-Run if [ ${INSTALL_NPM_GULP} = true ]; then \
+RUN if [ ${INSTALL_NPM_GULP} = true ]; then \
     npm install -g gulp \
     ;fi \
     && if [ ${INSTALL_NPM_BOWER} = true ]; then \
