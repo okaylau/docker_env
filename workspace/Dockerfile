@@ -17,7 +17,7 @@ RUN apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:ondrej/php
 
 # Change Source
-ARG CHANGE_SOURCE=false
+ARG CHANGE_SOURCE=true
 RUN if [ ${CHANGE_SOURCE} = true ]; then \
     RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
 ;fi
@@ -61,6 +61,8 @@ RUN apt-get update && \
         vim \
         nano \
         postgresql-client \
+        build-essential \
+        libpng-dev \
     && apt-get clean
 
 # Start as root
@@ -244,18 +246,20 @@ RUN if [ ${INSTALL_NPM_GULP} = true ]; then \
     ;fi
 
 ###########################################################################
-# PYTHON:
+# PYTHON2:
 ###########################################################################
 USER root
 
-ARG INSTALL_PYTHON=false
+ARG INSTALL_PYTHON=true
 
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  apt-get -y install python python-pip python-dev build-essential  \
-  && python -m pip install -i https://pypi.douban.com/simple --upgrade pip  \
-  && python -m pip install -i https://pypi.douban.com/simple --upgrade virtualenv \
-;fi
-
+    apt-get -y install python python-dev build-essential  \
+    && curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py  \
+    && python get-pip.py  \
+    && rm get-pip.py  \
+    && python -m pip install --upgrade pip  \
+    && python -m pip install --upgrade virtualenv \
+  ;fi
 ###########################################################################
 # User Aliases
 ###########################################################################
@@ -296,6 +300,10 @@ RUN php -v | head -n 1 | grep -q "PHP 7.4."
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm /var/log/lastlog /var/log/faillog
+
+# unset proxy
+ENV http_proxy=
+ENV https_proxy=
 
 # Set default work directory
 WORKDIR /var/www

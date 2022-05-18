@@ -71,6 +71,10 @@ RUN pecl install -o -f redis && \
 # Allow container to write on host
 RUN usermod -u 1000 www-data
 
+# unset proxy
+ENV http_proxy=
+ENV https_proxy=
+
 WORKDIR /var/www
 
 CMD ["php-fpm"]
